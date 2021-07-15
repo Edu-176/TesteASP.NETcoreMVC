@@ -8,6 +8,7 @@ namespace SalesWebMVC.Models
     {
         private int _id;
         private string _name;
+        public ICollection<Vendedor> Vendedores { get; set; } = new List<Vendedor>();
 
         public int Id
         {
@@ -19,6 +20,26 @@ namespace SalesWebMVC.Models
         {
             get { return _name; }
             set { _name = value; }
+        }
+
+        public Departamento()
+        {
+        }
+
+        public Departamento(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
+        public void AdcVendedor(Vendedor vendedor)
+        {
+            Vendedores.Add(vendedor);
+        }
+
+        public double TotalVendas(DateTime inicio, DateTime final)
+        {
+            return Vendedores.Sum(vendedor => vendedor.TotalVendas(inicio, final));
         }
     }
 }
