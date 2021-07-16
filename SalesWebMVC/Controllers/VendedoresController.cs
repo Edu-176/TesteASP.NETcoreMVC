@@ -19,5 +19,18 @@ namespace SalesWebMVC.Controllers
             List<Vendedor> lst = Servico.FindAll();
             return View(lst);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Vendedor obj)
+        {
+            Servico.Insert(obj);
+            return RedirectToAction("Index");
+        }
     }
 }
