@@ -1,16 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SalesWebMVC.Models;
+using SalesWebMVC.Serviços;
 
 namespace SalesWebMVC.Controllers
 {
     public class VendedoresController : Controller
     {
+        private readonly ServicoVendedor Servico;
+
+        public VendedoresController(ServicoVendedor servico)
+        {
+            Servico = servico;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            List<Vendedor> lst = Servico.FindAll();
+            return View(lst);
         }
     }
 }

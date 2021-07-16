@@ -27,11 +27,11 @@ namespace SalesWebMVC.Data
             Departamento d3 = new Departamento(3, "Limpeza");
             Departamento d4 = new Departamento(4, "Roupas");
 
-            Vendedor s1 = new Vendedor(1, "Fernando", "fernandin@gmail.com", new DateTime(1996 / 07 / 15), 1.500, d1);
-            Vendedor s2 = new Vendedor(2, "Bruno", "brunon@gmail.com", new DateTime(1990 / 02 / 01), 1.500, d2);
-            Vendedor s3 = new Vendedor(3, "Alexandre", "lelexandre@gmail.com", new DateTime(2001 / 02 / 15), 1.500, d1);
-            Vendedor s4 = new Vendedor(4, "Eduardo", "edu_a@gmail.com", new DateTime(1999 / 06 / 10), 1.500, d3);
-            Vendedor s5 = new Vendedor(5, "Larissa", "lara1@gmail.com", new DateTime(1994 / 06 / 11), 1.500, d4);
+            Vendedor s1 = new Vendedor(1, "Fernando", "fernandin@gmail.com", new DateTime(1996, 07, 15), 1.500, d1);
+            Vendedor s2 = new Vendedor(2, "Bruno", "brunon@gmail.com", new DateTime(1990, 02, 01), 1.800, d2);
+            Vendedor s3 = new Vendedor(3, "Alexandre", "lelexandre@gmail.com", new DateTime(2001, 02, 15), 1.900, d1);
+            Vendedor s4 = new Vendedor(4, "Eduardo", "edu_a@gmail.com", new DateTime(1999, 06, 10), 1.400, d3);
+            Vendedor s5 = new Vendedor(5, "Larissa", "lara1@gmail.com", new DateTime(1994, 06, 11), 1.100, d4);
 
             Venda r1 = new Venda(1, new DateTime(2018, 09, 25), 11000.0, SaleStatus.Pendente, s1);
             Venda r2 = new Venda(2, new DateTime(2018, 09, 4), 7000.0, SaleStatus.Faturado, s5);

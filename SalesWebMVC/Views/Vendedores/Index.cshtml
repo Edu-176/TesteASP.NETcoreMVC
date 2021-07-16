@@ -1,6 +1,53 @@
-﻿
+﻿@model IEnumerable<SalesWebMVC.Models.Vendedor>
+
 @{
+    ViewData["Title"] = "Vendedores";
 }
 
-<h1>Vendedores</h1>
-<p>Aqui estará todos os vendedores</p>
+<h1>@ViewData["Title"]</h1>
+<h2>Lista com todos os vendedores abaixo</h2>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="success">
+            <th>
+                @Html.DisplayNameFor(Model => Model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.DataNascimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(Model => Model.Salario)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(ModelItem => i.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => i.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => i.DataNascimento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(ModelItem => i.Salario)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@i.Id">Edit |</a>
+                        <a asp-action="Details" asp-route-id="@i.Id">Details |</a>
+                        <a asp-action="Delete" asp-route-id="@i.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+    </tbody>
+    
+       
+</table> 
