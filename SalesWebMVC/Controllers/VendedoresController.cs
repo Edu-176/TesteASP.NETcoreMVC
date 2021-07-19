@@ -1,36 +1,45 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using SalesWebMVC.Models;
 using SalesWebMVC.Serviços;
+using SalesWebMVC.Servicos;
+using SalesWebMVC.Models.ViewModels;
 
 namespace SalesWebMVC.Controllers
 {
     public class VendedoresController : Controller
     {
-        private readonly ServicoVendedor Servico;
+        private readonly ServicoVendedor _servicoVendedor;
+        private readonly ServicoDepartamento _servicoDepartamento;
 
-        public VendedoresController(ServicoVendedor servico)
+        public VendedoresController(ServicoVendedor servicoVendedor, ServicoDepartamento servicoDepartamento)
         {
-            Servico = servico;
+            _servicoVendedor = servicoVendedor;
+            _servicoDepartamento = servicoDepartamento;
         }
 
         public IActionResult Index()
         {
-            List<Vendedor> lst = Servico.FindAll();
+            List<Vendedor> lst = _servicoVendedor.FindAll();
             return View(lst);
         }
 
         public IActionResult Create()
         {
-            return View();
+            var departamentos = _servicoDepartamento.FindAll();
+            var viewModel = new VendedorFormViewModel { Departamento = departamentos };
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Vendedor obj)
+        public IActionResult Create(Vendedor vendedor)
         {
-            Servico.Insert(obj);
-            return RedirectToAction("Index");
+            
+            //Console.WriteLine(obj);
+            _servicoVendedor.Insert(vendedor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
