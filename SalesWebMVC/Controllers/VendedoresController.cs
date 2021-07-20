@@ -5,6 +5,7 @@ using SalesWebMVC.Models;
 using SalesWebMVC.Serviços;
 using SalesWebMVC.Servicos;
 using SalesWebMVC.Models.ViewModels;
+using SalesWebMVC.Servicos.Exceptions;
 
 namespace SalesWebMVC.Controllers
 {
@@ -76,6 +77,29 @@ namespace SalesWebMVC.Controllers
             }
 
             return View(resul);
+        }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var resul = _servicoVendedor.FindById(id.Value);
+            if (resul == null)
+            {
+                return NotFound();
+            }
+            var departamentos = _servicoDepartamento.FindAll();
+            var viewModel = new VendedorFormViewModel { Departamento = departamentos, Vendedor = resul};
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit()
+        {
+
         }
     }
 }
