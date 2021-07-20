@@ -36,9 +36,30 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Vendedor vendedor)
         {
-            
-            //Console.WriteLine(obj);
             _servicoVendedor.Insert(vendedor);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var resul = _servicoVendedor.FindById(id.Value);
+            if(resul == null)
+            {
+                return NotFound();
+            }
+            
+            return View(resul);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _servicoVendedor.Remove(id);
             return RedirectToAction(nameof(Index));
         }
     }
