@@ -1,14 +1,11 @@
 ﻿@model SalesWebMVC.Models.Vendedor
 
 @{
-    ViewData["Title"] = "Excluir vendedor";
+    ViewData["Title"] = "Detalhes do vendedor";
 }
 
 <h1>@ViewData["Title"]</h1>
 <hr />
-<h2>Deseja realmente excluir este vendedor?</h2>
-
-
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -35,11 +32,14 @@
         <dd>
             @Html.DisplayFor(model => model.Salario)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Departamento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Departamento.Name)
+        </dd>
     </dl>
-
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Excluir" class="btn btn-danger" /> 
-        <a asp-action="Index">Voltar para a lista</a>
-    </form>
+</div>
+<div>
+    <a asp-action="Index">Voltar para a lista</a>
 </div>
