@@ -97,9 +97,25 @@ namespace SalesWebMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit()
+        public IActionResult Edit(int id, Vendedor vendedor)
         {
-
+            if(id != vendedor.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _servicoVendedor.Update(vendedor);
+                return RedirectToAction(nameof(Index));
+            }
+            catch(NotFoundException)
+            {
+                return NotFound();
+            }
+            catch(DbConcurrencyException)
+            {
+                return BadRequest();
+            }
         }
     }
 }
