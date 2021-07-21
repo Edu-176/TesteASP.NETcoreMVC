@@ -8,8 +8,13 @@ namespace SalesWebMVC.Models
     public class Vendedor
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage ="{0} é obrigatório")]
+        [StringLength(40, MinimumLength = 3, ErrorMessage ="{0} deve conter entre {2} a {1} caracteres")]
         public string Nome { get; set; }
 
+        [Required(ErrorMessage = "{0} é obrigatório")]
+        [EmailAddress(ErrorMessage ="Informe um email válido")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
@@ -18,6 +23,8 @@ namespace SalesWebMVC.Models
         [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
         public DateTime DataNascimento { get; set; }
 
+        [Required(ErrorMessage = "{0} é obrigatório")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} must be from {1} to {2}")]
         [DisplayFormat(DataFormatString ="{0:F2}")]
         public double Salario { get; set; }
         public Departamento Departamento { get; set; }
