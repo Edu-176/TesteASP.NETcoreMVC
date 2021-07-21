@@ -6,6 +6,7 @@ using SalesWebMVC.Serviços;
 using SalesWebMVC.Servicos;
 using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Servicos.Exceptions;
+using System.Diagnostics;
 
 namespace SalesWebMVC.Controllers
 {
@@ -45,12 +46,12 @@ namespace SalesWebMVC.Controllers
         {
             if(id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
             var resul = _servicoVendedor.FindById(id.Value);
             if(resul == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Vendedor não encontrado" });
             }
             
             return View(resul);
@@ -68,12 +69,12 @@ namespace SalesWebMVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
             var resul = _servicoVendedor.FindById(id.Value);
             if (resul == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Vendedor não encontrado" });
             }
 
             return View(resul);
@@ -83,12 +84,12 @@ namespace SalesWebMVC.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id não fornecido" });
             }
             var resul = _servicoVendedor.FindById(id.Value);
             if (resul == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Vendedor não encontrado" });
             }
             var departamentos = _servicoDepartamento.FindAll();
             var viewModel = new VendedorFormViewModel { Departamento = departamentos, Vendedor = resul};
@@ -101,21 +102,31 @@ namespace SalesWebMVC.Controllers
         {
             if(id != vendedor.Id)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = "Id´s não correspondem" });
             }
             try
             {
                 _servicoVendedor.Update(vendedor);
                 return RedirectToAction(nameof(Index));
             }
-            catch(NotFoundException)
+            catch(NotFoundException e)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
-            catch(DbConcurrencyException)
+            catch(DbConcurrencyException e)
             {
-                return BadRequest();
+                return RedirectToAction(nameof(Error), new { message = e.Message });
             }
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
     }
 }
